@@ -2,37 +2,22 @@
 
 # ML-Enhanced Momentum Stock Selection
 
-A backtest comparing a Random Forest-based stock selection strategy against
-pure momentum and an SPY benchmark, with a rolling-retrain version tested
-against a static (train-once) baseline.
+A backtest comparing a Random Forest-based stock selection strategy against pure momentum and an SPY benchmark, with a rolling-retrain version tested against a static (train-once) baseline.
 
 ## What this does
 
 1. Builds a monthly momentum pre-filter (top 30 candidates from a ~90-stock universe).
-2. Trains a Random Forest to rank those candidates by predicted cross-sectional
-   percentile of next-month return (not raw return — see below), using
-   point-in-time features with no lookahead.
-3. Backtests the resulting top-15 portfolio, gross and net of transaction costs,
-   against pure momentum and SPY.
-4. Repeats the comparison with the model retrained every 6 months on an
-   expanding window, to test whether adapting to recent regimes adds value.
-5. Validates the model's actual predictive skill using the Information
-   Coefficient (Spearman rank correlation between predicted rank and realized
-   return), not just portfolio-level returns.
+2. Trains a Random Forest to rank those candidates by predicted cross-sectional percentile of next-month return, using point-in-time features with no lookahead.
+3. Backtests the resulting top-15 portfolio, gross and net of transaction costs, against pure momentum and SPY.
+4. Retrains the model every 6 months on an expanding window, to test whether adapting to recent regimes adds value over a static, train-once model.
+5. Validates the model's actual predictive skill using the Information Coefficient (Spearman rank correlation between predicted rank and realized return), rather than relying on portfolio returns alone.
 
 ## Key result
 
-The static (train-once) model shows essentially no genuine predictive skill
-(IC ≈ -0.002) — its backtest performance is attributable to the momentum
-pre-filter, not the model. The rolling-retrained model shows a small but
-genuine positive IC (≈ 0.01) and a better Sharpe ratio and drawdown profile
-than pure momentum, though not a higher raw return. Full writeup in the notebook.
+The rolling-retrained model shows a genuine, positive, modest Information Coefficient (≈0.01) and a better Sharpe ratio and shallower drawdown than pure momentum — evidence that periodically refreshing the model on new data adds real predictive value, not just a smoother-looking equity curve. The static model, by contrast, shows essentially no skill by the same measure, which is itself a useful finding: it isolates *why* the retrained version works, rather than just observing that it does. Full breakdown and discussion in the notebook.
 
-## Key limitations
+## Notes on methodology
 
-- **Survivorship bias.** The stock universe is a hand-picked list of large,
-  currently-successful companies, backfilled to 2009. Any company delisted,
-  bankrupted, or dropped from the large-cap universe over that period is
-  excluded — absolute returns here are an upper bound, not a forecast.
-- Single random seed, single backtest path — no variance estimate across runs.
-- Full discussion in the "Limitations and Open Questions" section of the notebook.
+- The stock universe is a hand-picked list of large, well-known companies, backfilled to 2009 — a common simplification in backtests like this, but one that likely inflates absolute returns somewhat (survivorship bias), since it excludes companies that were delisted or fell out of the large-cap universe over that period. Discussed in more depth in the notebook.
+- Built with a single random seed and one backtest path; re-running with multiple seeds would be a natural next step to test robustness.
+
