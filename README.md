@@ -14,10 +14,10 @@ A backtest comparing a Random Forest-based stock selection strategy against pure
 
 ## Key result
 
-The rolling-retrained model shows a genuine, positive, modest Information Coefficient (≈0.01) and a better Sharpe ratio and shallower drawdown than pure momentum — evidence that periodically refreshing the model on new data adds real predictive value, not just a smoother-looking equity curve. The static model, by contrast, shows essentially no skill by the same measure, which is itself a useful finding: it isolates *why* the retrained version works, rather than just observing that it does. Full breakdown and discussion in the notebook.
+The rolling-retrained model shows a genuine, positive, modest Information Coefficient (≈0.01) and a better Sharpe ratio and shallower drawdown than pure momentum, evidence that periodically refreshing the model on new data adds real predictive value, not just a smoother-looking equity curve. The static model, by contrast, shows essentially no skill by the same measure, which is itself a useful finding: it isolates *why* the retrained version works, rather than just observing that it does. Full breakdown and discussion in the notebook.
 
 ## Notes on methodology
 
-- The stock universe is a hand-picked list of large, well-known companies, backfilled to 2009 — a common simplification in backtests like this, but one that likely inflates absolute returns somewhat (survivorship bias), since it excludes companies that were delisted or fell out of the large-cap universe over that period. Discussed in more depth in the notebook.
+- The stock universe is a hand-picked list of large, well-known companies, backfilled to 2009, a common simplification in backtests like this, but one that likely inflates absolute returns somewhat (survivorship bias), since it excludes companies that were delisted or fell out of the large-cap universe over that period. Discussed in more depth in the notebook.
 - Built with a single random seed and one backtest path; re-running with multiple seeds would be a natural next step to test robustness.
 
