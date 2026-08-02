@@ -17,4 +17,3 @@ The model shows a genuine, positive Information Coefficient (0.0545), meaning it
 
 - The stock universe is a sector-stratified sample of the current S&P 500, which avoids arbitrarily missing large, currently-important companies, but it's still not a full point-in-time reconstruction of a historical index, so some survivorship bias likely remains. Absolute returns should be read as an upper bound, not a forecast. Discussed in depth in the notebook.
 - Built with a single random seed and one backtest path; re-running with multiple seeds would be a natural next step to test robustness.
-
